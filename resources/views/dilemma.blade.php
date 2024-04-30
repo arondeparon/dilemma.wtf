@@ -16,7 +16,35 @@
         {{ $dilemma2 }}
     </div>
     <div class="lg:mt-16 text-lg flex space-x-4 items-center">
-        <a href="{{ route('dilemma', ['hash' => $hash]) }}" class="text-blue-500 underline">Share this dilemma</a>
+        <div x-data="{ copied: false }" class="relative">
+            <a href="#"
+               @click.prevent="
+           if (navigator.clipboard) {
+               navigator.clipboard.writeText('{{ route('dilemma', ['hash' => $hash]) }}')
+                   .then(() => {
+                       copied = true;
+                       setTimeout(() => { copied = false; }, 3000);
+                   })
+                   .catch(e => console.error('Copy failed', e));
+           } else {
+               console.error('Clipboard not available');
+           }"
+               class="text-blue-500 underline">
+                Share this dilemma
+            </a>
+            <div x-cloak x-show="copied"
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="transform opacity-0 translate-y-2"
+                 x-transition:enter-end="transform opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-300"
+                 x-transition:leave-start="transform opacity-100 translate-y-0"
+                 x-transition:leave-end="transform opacity-0 translate-y-2"
+                 class="absolute left-0 mt-2 py-2 px-4 bg-blue-100 text-blue-800 rounded-lg shadow-lg">
+                Copied!
+            </div>
+        </div>
+
+
         <a href="/" class="text-blue-500 underline">Give me another one</a>
         <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-slate-800 hover:text-slate-600">
             <span class="sr-only">GitHub</span>

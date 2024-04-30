@@ -8,7 +8,8 @@
         "php": "^8.2",
         "graham-campbell/markdown": "^15.2",
         "laravel/framework": "^11.0",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "simonhamp/the-og": "^0.5.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

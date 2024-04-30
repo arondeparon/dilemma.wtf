@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Actions\GetDilemma;
 use App\Actions\GetTwoRandomDilemmas;
+use App\Jobs\GenerateSocialImageJob;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Queue;
 
 class DilemmaController extends Controller
 {
     public function __construct(
-        public GetTwoRandomDilemmas $getTwoRandomDilemmas,
-        public GetDilemma $getDilemma
+        private GetTwoRandomDilemmas $getTwoRandomDilemmas,
+        private GetDilemma $getDilemma,
     )
     {
     }
@@ -27,6 +29,12 @@ class DilemmaController extends Controller
             [$firstDilemma, $secondDilemma] = $dilemmas;
             $hash = base64_encode("{$firstDilemma->getBasename()}||{$secondDilemma->getBasename()}");
         }
+
+        Queue::push(new GenerateSocialImageJob(
+            route('dilemma', ['hash' => $hash]),
+            $firstDilemma,
+            $secondDilemma
+        ));
 
         return view('dilemma')
             ->with('dilemma1', File::get($firstDilemma))

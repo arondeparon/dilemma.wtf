@@ -1,7 +1,6 @@
 <?php
 
+use App\Http\Controllers\DilemmaController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', DilemmaController::class);

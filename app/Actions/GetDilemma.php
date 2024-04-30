@@ -12,7 +12,7 @@ class GetDilemma
 
     public function execute(string $file)
     {
-        $path = storage_path('app/dilemmas');
+        $path = resource_path('dilemmas');
 
         // Find markdown files in the dilemmas directory
         $files = collect(File::files($path))

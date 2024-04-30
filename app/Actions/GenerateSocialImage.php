@@ -14,11 +14,11 @@ class GenerateSocialImage
     {
         $hash = md5($url);
 
-        if (! is_dir(storage_path('app/opengraph'))) {
-            mkdir(storage_path('app/opengraph'));
+        if (! is_dir(storage_path('app/public/opengraph'))) {
+            mkdir(storage_path('app/public/opengraph'));
         }
 
-        if (file_exists(storage_path("app/opengraph/$hash.png"))) {
+        if (file_exists(storage_path("app/public/opengraph/$hash.png"))) {
             return;
         }
 
@@ -33,7 +33,7 @@ class GenerateSocialImage
         $secondDilemma
     TEXT)
             ->background(Background::GridMe, 0.3)
-            ->save(storage_path("app/opengraph/$hash.png"));
+            ->save(storage_path("app/public/opengraph/$hash.png"));
 
 
     }

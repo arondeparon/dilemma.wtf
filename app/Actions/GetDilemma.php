@@ -6,14 +6,11 @@ use App\Support\Traits\Makeable;
 use Illuminate\Support\Facades\File;
 use SplFileInfo;
 
-class GetTwoRandomDilemmas
+class GetDilemma
 {
     use Makeable;
 
-    /**
-     * @return array<SplFileInfo>
-     */
-    public function execute()
+    public function execute(string $file)
     {
         $path = storage_path('app/dilemmas');
 
@@ -23,11 +20,11 @@ class GetTwoRandomDilemmas
                 return $file->getExtension() === 'md';
             });
 
-        $randomDilemmas = $files->random(2);
+        /** @var SplFileInfo $dilemma */
+        $dilemma = $files->first(function (SplFileInfo $f) use ($file) {
+            return $f->getFilename() === $file;
+        });
 
-        return [
-            $randomDilemmas[0],
-            $randomDilemmas[1],
-        ];
+        return $dilemma->getPathname();
     }
 }

@@ -1,1 +1,1 @@
-There is a crack in your smartphone screen
+Crack in your smartphone screen

@@ -6,13 +6,13 @@
 
 @section('content')
 <div class="flex flex-col items-center justify-center h-screen text-8xl lg:text-9xl">
-    <div class="font-bold text-center">
+    <div class="font-bold text-center text-gray-800">
         {{ $dilemma1 }}
     </div>
     <div class="text-6xl text-gray-300">
         or
     </div>
-    <div class="font-bold text-center">
+    <div class="font-bold text-center text-gray-500">
         {{ $dilemma2 }}
     </div>
     <div class="lg:mt-16 text-lg flex space-x-4">

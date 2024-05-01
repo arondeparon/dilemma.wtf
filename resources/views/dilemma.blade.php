@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="flex flex-col items-center justify-center h-screen text-8xl lg:text-9xl">
+<div class="flex flex-col items-center justify-center h-screen text-5xl md:text-8xl lg:text-9xl">
     <div class="font-bold text-center text-gray-800">
         {{ $dilemma1 }}
     </div>

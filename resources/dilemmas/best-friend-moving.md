@@ -1,1 +1,1 @@
-Your best friend moves to another city
+Your best friend moves to another country

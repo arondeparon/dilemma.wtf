@@ -37,8 +37,9 @@ class DilemmaController extends Controller
         if (! $firstDilemma || ! $secondDilemma) {
             $dilemmas = $this->getTwoRandomDilemmas->execute();
             [$firstDilemma, $secondDilemma] = $dilemmas;
-            $hash = base64_encode("{$firstDilemma->getBasename()}||{$secondDilemma->getBasename()}");
         }
+
+        $hash = base64_encode("{$firstDilemma->getBasename()}||{$secondDilemma->getBasename()}");
 
         $firstDilemmaText = File::get($firstDilemma);
         $secondDilemmaText = File::get($secondDilemma);

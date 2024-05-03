@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="flex flex-col justify-between h-screen dark:bg-gray-800">
+    <div class="flex flex-col justify-between h-dvh dark:bg-gray-800">
         <!-- Dilemmas Content -->
         <div class="flex flex-col items-center justify-center flex-grow px-4 text-center">
             <div class="font-bold text-gray-800 dark:text-white text-5xl md:text-8xl lg:text-9xl">

@@ -7,7 +7,7 @@
     <script src="//unpkg.com/alpinejs" defer></script>
     {{--    og image--}}
     @if (isset($hash))
-        <meta property="og:image" content="/storage/opengraph/{{ md5($hash) }}.png">
+        <meta property="og:image" content="{{ url('/storage/opengraph/' . md5($hash)) }}.png">
     @endif
     <title>@yield('title', 'Dilemma.wtf')</title>
     <script defer src="https://analytics.gistreader.com/script.js" data-website-id="7e435c54-925c-49d5-a922-5e10df3fb149"></script>

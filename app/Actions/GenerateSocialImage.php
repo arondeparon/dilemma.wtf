@@ -32,8 +32,8 @@ class GenerateSocialImage
         (new Image())
             ->accentColor('#1B0000')
             ->url($url)
-            ->title('dilemma.wtf')
-            ->description($firstDilemma . ' or ' . $secondDilemma)
+            ->title('Would you rather...')
+            ->description(trim($firstDilemma) . ' or ' . trim($secondDilemma))
             ->background(Background::GridMe, 0.4)
             ->save(storage_path("app/public/opengraph/$hash.png"));
 

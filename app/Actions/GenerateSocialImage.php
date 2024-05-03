@@ -4,6 +4,7 @@ namespace App\Actions;
 
 use App\Support\Traits\Makeable;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use SimonHamp\TheOg\Background;
 use SimonHamp\TheOg\Image;
 
@@ -22,6 +23,11 @@ class GenerateSocialImage
         if (file_exists(storage_path("app/public/opengraph/$hash.png"))) {
             return;
         }
+
+        Log::info('Generating social image', [
+            'url' => $url,
+            'path' => storage_path("app/public/opengraph/$hash.png"),
+        ]);
 
         (new Image())
             ->accentColor('#1B0000')

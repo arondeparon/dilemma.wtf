@@ -40,15 +40,18 @@ class DilemmaController extends Controller
             $hash = base64_encode("{$firstDilemma->getBasename()}||{$secondDilemma->getBasename()}");
         }
 
+        $firstDilemmaText = File::get($firstDilemma);
+        $secondDilemmaText = File::get($secondDilemma);
+
         Queue::push(new GenerateSocialImageJob(
             route('dilemma', ['hash' => $hash]),
-            $firstDilemma,
-            $secondDilemma
+            $firstDilemmaText,
+            $secondDilemmaText
         ));
 
         return view('dilemma')
-            ->with('dilemma1', File::get($firstDilemma))
-            ->with('dilemma2', File::get($secondDilemma))
+            ->with('dilemma1', $firstDilemmaText)
+            ->with('dilemma2', $secondDilemmaText)
             ->with('hash', $hash);
     }
 }

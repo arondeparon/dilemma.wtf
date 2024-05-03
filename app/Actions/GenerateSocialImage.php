@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Support\Traits\Makeable;
+use Illuminate\Support\Facades\File;
 use SimonHamp\TheOg\Background;
 use SimonHamp\TheOg\Image;
 
@@ -23,16 +24,10 @@ class GenerateSocialImage
         }
 
         (new Image())
-            ->accentColor('#cc0000')
-            ->border()
+            ->accentColor('#1B0000')
             ->url($url)
-            ->title('Dilemma')
-            ->description(<<<TEXT
-        $firstDilemma
-
-        $secondDilemma
-    TEXT)
-            ->background(Background::GridMe, 0.3)
+            ->description($firstDilemma . ' or ' . $secondDilemma)
+            ->background(Background::GridMe, 0.4)
             ->save(storage_path("app/public/opengraph/$hash.png"));
 
 

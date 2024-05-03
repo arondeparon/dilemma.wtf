@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Support\Traits\Makeable;
+use Exception;
 use Illuminate\Support\Facades\File;
 use SplFileInfo;
 
@@ -10,7 +11,7 @@ class GetDilemma
 {
     use Makeable;
 
-    public function execute(string $file)
+    public function execute(string $file): SplFileInfo
     {
         $path = resource_path('dilemmas');
 
@@ -25,6 +26,10 @@ class GetDilemma
             return $f->getFilename() === $file;
         });
 
-        return $dilemma->getPathname();
+        if (! $dilemma) {
+            throw new Exception('Dilemma not found');
+        }
+
+        return $dilemma;
     }
 }

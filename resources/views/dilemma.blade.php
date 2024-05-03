@@ -30,7 +30,7 @@
                          x-transition:leave="transition ease-in duration-300"
                          x-transition:leave-start="transform opacity-100 translate-y-0"
                          x-transition:leave-end="transform opacity-0 translate-y-2"
-                         class="absolute w-60 left-0 -translate-y-16 mt-2 py-2 px-4 bg-blue-100 text-blue-800 rounded-lg shadow-lg">
+                         class="absolute w-60 left-0 -top-16 mt-2 py-2 px-4 bg-blue-100 text-blue-800 rounded-lg shadow-lg">
                         URL copied to clipboard!
                     </div>
                     <a href="#"

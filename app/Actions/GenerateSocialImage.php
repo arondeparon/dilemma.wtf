@@ -31,7 +31,7 @@ class GenerateSocialImage
             ->url(route('dilemma', ['hash' => $hash]))
             ->title('What do you prefer?')
             ->description(trim($firstDilemma) . ' or ' . trim($secondDilemma))
-            ->background(Background::Bananas, 0.4)
+            ->background(Background::GridMe, 0.4)
             ->save(storage_path("app/public/opengraph/$hash.png"));
 
 

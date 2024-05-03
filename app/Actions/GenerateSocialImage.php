@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Support\Traits\Makeable;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use SimonHamp\TheOg\Background;
 use SimonHamp\TheOg\Image;
@@ -12,10 +11,8 @@ class GenerateSocialImage
 {
     use Makeable;
 
-    public function execute(string $url, $firstDilemma, $secondDilemma)
+    public function execute(string $hash, $firstDilemma, $secondDilemma)
     {
-        $hash = md5($url);
-
         if (! is_dir(storage_path('app/public/opengraph'))) {
             mkdir(storage_path('app/public/opengraph'));
         }
@@ -25,16 +22,16 @@ class GenerateSocialImage
         }
 
         Log::info('Generating social image', [
-            'url' => $url,
+            'url' => route('dilemma', ['hash' => $hash]),
             'path' => storage_path("app/public/opengraph/$hash.png"),
         ]);
 
         (new Image())
             ->accentColor('#1B0000')
-            ->url($url)
+            ->url(route('dilemma', ['hash' => $hash]))
             ->title('What do you prefer?')
             ->description(trim($firstDilemma) . ' or ' . trim($secondDilemma))
-            ->background(Background::GridMe, 0.4)
+            ->background(Background::Bananas, 0.4)
             ->save(storage_path("app/public/opengraph/$hash.png"));
 
 

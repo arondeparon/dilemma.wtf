@@ -13,12 +13,16 @@ class GenerateSocialImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public string $url, public string $firstDilemma, public string $secondDilemma)
+    public function __construct(
+        public string $hash,
+        public string $firstDilemma,
+        public string $secondDilemma
+    )
     {
     }
 
     public function handle(): void
     {
-        GenerateSocialImage::make()->execute($this->url, $this->firstDilemma, $this->secondDilemma);
+        GenerateSocialImage::make()->execute($this->hash, $this->firstDilemma, $this->secondDilemma);
     }
 }

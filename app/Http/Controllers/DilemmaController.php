@@ -45,9 +45,9 @@ class DilemmaController extends Controller
         $secondDilemmaText = File::get($secondDilemma);
 
         Queue::push(new GenerateSocialImageJob(
-            route('dilemma', ['hash' => $hash]),
-            $firstDilemmaText,
-            $secondDilemmaText
+            hash: $hash,
+            firstDilemma: $firstDilemmaText,
+            secondDilemma: $secondDilemmaText,
         ));
 
         return view('dilemma')

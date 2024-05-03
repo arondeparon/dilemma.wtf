@@ -20,11 +20,21 @@ class DilemmaController extends Controller
 
     public function __invoke(Request $request, ?string $hash = null)
     {
+        $firstDilemma = null;
+        $secondDilemma = null;
+
         if ($hash) {
-            [$file1, $file2] = explode('||', base64_decode($hash));
-            $firstDilemma = $this->getDilemma->execute($file1);
-            $secondDilemma = $this->getDilemma->execute($file2);
-        } else {
+            rescue(
+                callback: function () use ($hash, &$firstDilemma, &$secondDilemma) {
+                    [$file1, $file2] = explode('||', base64_decode($hash));
+                    $firstDilemma = $this->getDilemma->execute($file1);
+                    $secondDilemma = $this->getDilemma->execute($file2);
+                },
+                report: false
+            );
+        }
+
+        if (! $firstDilemma || ! $secondDilemma) {
             $dilemmas = $this->getTwoRandomDilemmas->execute();
             [$firstDilemma, $secondDilemma] = $dilemmas;
             $hash = base64_encode("{$firstDilemma->getBasename()}||{$secondDilemma->getBasename()}");

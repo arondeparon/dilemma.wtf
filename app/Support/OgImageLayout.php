@@ -40,7 +40,7 @@ class OgImageLayout extends GitHubBasic
                 ->text($description)
                 ->color($this->config->theme->getDescriptionColor())
                 ->font($this->config->theme->getDescriptionFont())
-                ->size(60)
+                ->size(80)
                 ->box($this->mountArea()->box->width(), 240)
                 ->position(
                     x: 0,

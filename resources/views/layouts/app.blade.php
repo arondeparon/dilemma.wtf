@@ -17,7 +17,9 @@
         <meta name="twitter:image" content="{{ url('/storage/opengraph/' . $hash) }}.png" />
     @endif
     <title>@yield('title', 'Dilemma.wtf')</title>
-    <script defer src="https://analytics.gistreader.com/script.js" data-website-id="7e435c54-925c-49d5-a922-5e10df3fb149"></script>
+    @production
+        <script defer src="https://analytics.gistreader.com/script.js" data-website-id="7e435c54-925c-49d5-a922-5e10df3fb149"></script>
+    @endproduction
     @vite('resources/css/app.css')
 </head>
 <body>

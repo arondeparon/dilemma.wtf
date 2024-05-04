@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    {{ $dilemma1 }} or {{ $dilemma2 }}? - What would you choose? - Dilemma.wtf
+    {{ trim($dilemma1) }} or {{ trim($dilemma2) }} - What would you choose? - Dilemma.wtf
 @endsection
 
 @section('content')

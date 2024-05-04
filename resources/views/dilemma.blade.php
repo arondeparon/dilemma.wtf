@@ -21,36 +21,38 @@
 
         <!-- Footer Actions -->
         <div class="p-4">
-            <div class="lg:mt-16 text-lg flex space-x-4 items-center justify-center">
-                <div x-data="{ copied: false }" class="relative">
-                    <div x-cloak x-show="copied"
-                         x-transition:enter="transition ease-out duration-300"
-                         x-transition:enter-start="transform opacity-0 translate-y-2"
-                         x-transition:enter-end="transform opacity-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-300"
-                         x-transition:leave-start="transform opacity-100 translate-y-0"
-                         x-transition:leave-end="transform opacity-0 translate-y-2"
-                         class="absolute w-60 left-0 -top-16 mt-2 py-2 px-4 bg-blue-100 text-blue-800 rounded-lg shadow-lg">
-                        URL copied to clipboard!
+            <div class="lg:mt-16 text-lg flex space-x-4 items-center justify-between">
+                <div class="flex flex-1 justify-center space-x-4">
+                    <div x-data="{ copied: false }" class="relative">
+                        <div x-cloak x-show="copied"
+                             x-transition:enter="transition ease-out duration-300"
+                             x-transition:enter-start="transform opacity-0 translate-y-2"
+                             x-transition:enter-end="transform opacity-100 translate-y-0"
+                             x-transition:leave="transition ease-in duration-300"
+                             x-transition:leave-start="transform opacity-100 translate-y-0"
+                             x-transition:leave-end="transform opacity-0 translate-y-2"
+                             class="absolute w-60 left-0 -top-16 mt-2 py-2 px-4 bg-blue-100 text-blue-800 rounded-lg shadow-lg">
+                            URL copied to clipboard!
+                        </div>
+                        <a href="#"
+                           @click.prevent="
+                        if (navigator.clipboard) {
+                            navigator.clipboard.writeText('{{ route('dilemma', ['hash' => $hash]) }}')
+                                .then(() => {
+                                    copied = true;
+                                    setTimeout(() => { copied = false; }, 3000);
+                                })
+                                .catch(e => console.error('Copy failed', e));
+                        } else {
+                            console.error('Clipboard not available');
+                        }"
+                           class="text-blue-400">
+                            Share this dilemma
+                        </a>
                     </div>
-                    <a href="#"
-                       @click.prevent="
-                    if (navigator.clipboard) {
-                        navigator.clipboard.writeText('{{ route('dilemma', ['hash' => $hash]) }}')
-                            .then(() => {
-                                copied = true;
-                                setTimeout(() => { copied = false; }, 3000);
-                            })
-                            .catch(e => console.error('Copy failed', e));
-                    } else {
-                        console.error('Clipboard not available');
-                    }"
-                       class="text-blue-400">
-                        Share this dilemma
-                    </a>
+                    <span class="text-gray-400">•</span>
+                    <a href="/" class="text-blue-400">Refresh</a>
                 </div>
-                <span class="text-gray-400">•</span>
-                <a href="/" class="text-blue-400">Refresh</a>
                 <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                     <span class="sr-only">GitHub</span>
                     <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

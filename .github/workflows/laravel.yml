@@ -28,6 +28,9 @@ jobs:
       - name: Run Pint
         run: ./vendor/bin/pint --test
 
+      - name: Generate key
+        run: php artisan key:generate
+
       - name: Create testing database
         run: touch database/database.sqlite
 

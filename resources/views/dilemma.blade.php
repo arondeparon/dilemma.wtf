@@ -67,12 +67,12 @@
                         </a>
                     </div>
                     <span class="text-gray-400">•</span>
-                    <a id="reload" href="/" class="text-blue-400">Refresh</a>
+                    <a id="reload" href="/" class="text-blue-400">Next</a>
                     <span class="text-gray-400">•</span>
                     <span class="hidden lg:inline text-sm text-gray-500">Keyboard shortcuts:
                         <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">↑</kbd> - first,
                         <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">↓</kbd> - second,
-                        <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"d>↵</kbd> - refresh
+                        <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"d>↵</kbd> - next
                     </span>
                 </div>
                 <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">

@@ -1,1 +1,1 @@
-You lose 7 toes due to frostbite
+You lose a toe due to frostbite

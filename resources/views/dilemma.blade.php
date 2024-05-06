@@ -7,7 +7,7 @@
 @section('content')
     <div x-cloak class="flex flex-col justify-between h-dvh dark:bg-gray-800" x-data="{ selected: null }">
         <!-- Dilemmas Content -->
-        <div class="flex flex-col items-center justify-center flex-grow px-4 text-center" x-data="voter">
+        <div class="flex flex-col items-center justify-center flex-grow px-12 text-center" x-data="voter">
             <a class="font-bold text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
                id="first"
                href="#"

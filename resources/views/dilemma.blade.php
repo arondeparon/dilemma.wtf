@@ -92,6 +92,12 @@
 
             // Use arrow up to select first, arrow down to select second and enter to reload page
             document.addEventListener('keydown', function(event) {
+                const caughtKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
+
+                if (!caughtKeys.includes(event.key)) {
+                    return;
+                }
+
                 if (event.key === 'ArrowUp') {
                     document.getElementById('first').click();
                 } else if (event.key === 'ArrowDown') {
@@ -99,6 +105,7 @@
                 } else if (event.key === 'Enter') {
                     document.getElementById('reload').click();
                 }
+
                 event.preventDefault();
             });
         });

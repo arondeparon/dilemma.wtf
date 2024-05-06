@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,13 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('votes', function (Request $request) {
-            if (! $request->route('hash')) {
-                return Limit::none();
-            }
-
-            return Limit::perHour(1)
-                ->by($request->ip().':'.$request->route('hash'));
-        });
+        //
     }
 }

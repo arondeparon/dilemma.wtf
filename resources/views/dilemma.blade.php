@@ -81,10 +81,6 @@
             Alpine.data('voter', () => ({
                 selected: null,
                 vote(option) {
-                    if (this.selected) {
-                        // Cast a vote and never look back.
-                        return;
-                    }
                     this.selected = option;
                     axios.post('{{ action(\App\Http\Controllers\VoteController::class, $hash) }}', {
                         'vote': option,

@@ -64,7 +64,7 @@ it('can vote for second dilemma', function () {
     ]);
 });
 
-it('will return 429 if voting too fast', function () {
+it('will decrement a previous vote if it is different from the current one', function () {
     $dilemma = Dilemma::factory()->create();
 
     $this->postJson(action(VoteController::class, $dilemma->hash), [
@@ -73,13 +73,13 @@ it('will return 429 if voting too fast', function () {
 
     $response = $this->postJson(action(VoteController::class, $dilemma->hash), [
         'vote' => 'second',
-    ]);
+    ])->dump();
+
+    $response->assertNoContent();
 
     $this->assertDatabaseHas('dilemmas', [
         'id' => $dilemma->id,
-        'first_dilemma_votes' => 1,
-        'second_dilemma_votes' => 0,
+        'first_dilemma_votes' => 0,
+        'second_dilemma_votes' => 1,
     ]);
-
-    $response->assertStatus(429);
 });

@@ -9,6 +9,7 @@
         <!-- Dilemmas Content -->
         <div class="flex flex-col items-center justify-center flex-grow px-4 text-center" x-data="voter">
             <a class="font-bold text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
+               id="first"
                href="#"
                :class="{
                'text-gray-800 dark:text-white': selected !== 'first',
@@ -22,6 +23,7 @@
                 or
             </div>
             <a class="font-bold text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
+               id="second"
                href="#"
                :class="{
                'text-gray-500 dark:text-gray-400': selected !== 'second',
@@ -65,7 +67,7 @@
                         </a>
                     </div>
                     <span class="text-gray-400">•</span>
-                    <a href="/" class="text-blue-400">Refresh</a>
+                    <a id="reload" href="/" class="text-blue-400">Refresh</a>
                 </div>
                 <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                     <span class="sr-only">GitHub</span>
@@ -87,6 +89,18 @@
                     })
                 }
             }));
+
+            // Use arrow up to select first, arrow down to select second and enter to reload page
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'ArrowUp') {
+                    document.getElementById('first').click();
+                } else if (event.key === 'ArrowDown') {
+                    document.getElementById('second').click();
+                } else if (event.key === 'Enter') {
+                    document.getElementById('reload').click();
+                }
+                event.preventDefault();
+            });
         });
     </script>
 @endsection

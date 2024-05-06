@@ -5,18 +5,26 @@
 @endsection
 
 @section('content')
-    <div class="flex flex-col justify-between h-dvh dark:bg-gray-800">
+    <div class="flex flex-col justify-between h-dvh dark:bg-gray-800" x-data="{ selected: null }">
         <!-- Dilemmas Content -->
-        <div class="flex flex-col items-center justify-center flex-grow px-4 text-center">
-            <div class="font-bold text-gray-800 dark:text-white text-5xl md:text-8xl lg:text-9xl">
+        <div class="flex flex-col items-center justify-center flex-grow px-4 text-center" x-data="voter">
+            <a class="font-bold text-gray-800 dark:text-white text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
+               href="#"
+               :class="{ 'text-green-500 dark:text-green-400': selected === 'first' }"
+               @click.prevent="vote('first')"
+            >
                 {{ $dilemma1 }}
-            </div>
+            </a>
             <div class="text-6xl text-gray-300 dark:text-gray-500">
                 or
             </div>
-            <div class="font-bold text-gray-500 dark:text-gray-400 text-5xl md:text-8xl lg:text-9xl">
+            <a class="font-bold text-gray-500 dark:text-gray-400 text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
+               href="#"
+               :class="{ 'text-green-500 dark:text-green-400': selected === 'second' }"
+               @click.prevent="vote('second')"
+            >
                 {{ $dilemma2 }}
-            </div>
+            </a>
         </div>
 
         <!-- Footer Actions -->
@@ -62,4 +70,21 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('voter', () => ({
+                selected: null,
+                vote(option) {
+                    if (this.selected) {
+                        // Cast a vote and never look back.
+                        return;
+                    }
+                    this.selected = option;
+                    axios.post('{{ action(\App\Http\Controllers\VoteController::class, $hash) }}', {
+                        'vote': option,
+                    })
+                }
+            }));
+        });
+    </script>
 @endsection

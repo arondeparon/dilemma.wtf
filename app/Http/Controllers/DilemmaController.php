@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\GetDilemma;
 use App\Actions\GetTwoRandomDilemmas;
 use App\Jobs\GenerateSocialImageJob;
+use App\Models\Dilemma;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Queue;
@@ -43,6 +44,12 @@ class DilemmaController extends Controller
 
         $firstDilemmaText = File::get($firstDilemma);
         $secondDilemmaText = File::get($secondDilemma);
+
+        Dilemma::firstOrCreate([
+            'hash' => $hash,
+            'first_dilemma' => trim($firstDilemmaText),
+            'second_dilemma' => trim($secondDilemmaText),
+        ]);
 
         Queue::push(new GenerateSocialImageJob(
             hash: $hash,

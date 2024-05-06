@@ -15,8 +15,7 @@ class DilemmaController extends Controller
     public function __construct(
         private GetTwoRandomDilemmas $getTwoRandomDilemmas,
         private GetDilemma $getDilemma,
-    )
-    {
+    ) {
     }
 
     public function __invoke(Request $request, ?string $hash = null)

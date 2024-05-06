@@ -17,8 +17,7 @@ class GenerateSocialImageJob implements ShouldQueue
         public string $hash,
         public string $firstDilemma,
         public string $secondDilemma
-    )
-    {
+    ) {
     }
 
     public function handle(): void

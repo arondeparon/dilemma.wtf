@@ -45,7 +45,7 @@ class OgImageLayout extends GitHubBasic
                 ->position(
                     x: 0,
                     y: 50,
-                    relativeTo: fn() => $this->getFeature('title')->anchor(Position::BottomLeft),
+                    relativeTo: fn () => $this->getFeature('title')->anchor(Position::BottomLeft),
                 )
             );
         }
@@ -60,7 +60,7 @@ class OgImageLayout extends GitHubBasic
                 ->position(
                     x: 0,
                     y: 20,
-                    relativeTo: fn() => $this->getFeature('description')->anchor(),
+                    relativeTo: fn () => $this->getFeature('description')->anchor(),
                 )
             );
         }
@@ -76,7 +76,7 @@ class OgImageLayout extends GitHubBasic
                 ->position(
                     x: 0,
                     y: 20,
-                    relativeTo: fn() => $this->mountArea()->anchor(),
+                    relativeTo: fn () => $this->mountArea()->anchor(),
                 )
             );
         }

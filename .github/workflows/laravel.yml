@@ -29,7 +29,7 @@ jobs:
         run: ./vendor/bin/pint --test
 
       - name: Create testing database
-        run: touch database/testing.sqlite
+        run: touch database/database.sqlite
 
       - name: Tests
         env:

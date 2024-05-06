@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\VoteController;
 use App\Models\Dilemma;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+
+uses(LazilyRefreshDatabase::class);
 
 it('will return 404 if dilemma was not found', function () {
     $response = $this->postJson(action(VoteController::class, 'derp'), [

@@ -32,6 +32,11 @@ class DilemmaController extends Controller
                 },
                 report: false
             );
+
+            if (! $firstDilemma || ! $secondDilemma) {
+                // No need to fall back to anything else if somebody decides to use invalid hashes.
+                abort(404);
+            }
         }
 
         if (! $firstDilemma || ! $secondDilemma) {

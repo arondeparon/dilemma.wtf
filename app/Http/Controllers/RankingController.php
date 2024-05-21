@@ -12,6 +12,7 @@ class RankingController extends Controller
             ->orderByDesc('second_dilemma_votes')
             ->get();
 
-        return response()->json($dilemmas);
+        return view('ranking')
+            ->with('rankings', $dilemmas);
     }
 }

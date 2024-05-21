@@ -72,7 +72,7 @@
                     <span class="hidden lg:inline text-sm text-gray-500">Keyboard shortcuts:
                         <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">↑</kbd> - first,
                         <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">↓</kbd> - second,
-                        <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"d>↵</kbd> - next
+                        <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500"d>→</kbd> - next
                     </span>
                 </div>
                 <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
@@ -98,7 +98,7 @@
 
             // Use arrow up to select first, arrow down to select second and enter to reload page
             document.addEventListener('keydown', function(event) {
-                const caughtKeys = ['ArrowUp', 'ArrowDown', 'Enter'];
+                const caughtKeys = ['ArrowUp', 'ArrowDown', 'ArrowRight', 'Enter'];
 
                 if (!caughtKeys.includes(event.key)) {
                     return;
@@ -108,7 +108,7 @@
                     document.getElementById('first').click();
                 } else if (event.key === 'ArrowDown') {
                     document.getElementById('second').click();
-                } else if (event.key === 'Enter') {
+                } else if ([ 'ArrowRight', 'Enter' ].includes(event.key)) {
                     document.getElementById('reload').click();
                 }
 

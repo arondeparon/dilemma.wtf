@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\GetDilemma;
 use App\Actions\GetTwoRandomDilemmas;
 use App\Jobs\GenerateSocialImageJob;
-use App\Models\Dilemma;
+use App\Models\Decision;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Queue;
 
 class DilemmaController extends Controller
 {
     public function __construct(
         private GetTwoRandomDilemmas $getTwoRandomDilemmas,
-        private GetDilemma $getDilemma,
     ) {
     }
 
@@ -24,14 +21,12 @@ class DilemmaController extends Controller
         $secondDilemma = null;
 
         if ($hash) {
-            rescue(
-                callback: function () use ($hash, &$firstDilemma, &$secondDilemma) {
-                    [$file1, $file2] = explode('||', base64_decode($hash));
-                    $firstDilemma = $this->getDilemma->execute($file1);
-                    $secondDilemma = $this->getDilemma->execute($file2);
-                },
-                report: false
-            );
+            $decision = Decision::where('hash', $hash)
+                ->with('firstDilemma', 'secondDilemma')
+                ->first();
+
+            $firstDilemma = $decision->firstDilemma;
+            $secondDilemma = $decision->secondDilemma;
 
             if (! $firstDilemma || ! $secondDilemma) {
                 // No need to fall back to anything else if somebody decides to use invalid hashes.
@@ -44,26 +39,30 @@ class DilemmaController extends Controller
             [$firstDilemma, $secondDilemma] = $dilemmas;
         }
 
-        $hash = base64_encode("{$firstDilemma->getBasename()}||{$secondDilemma->getBasename()}");
+        $hash = $hash ?? md5($firstDilemma->id.$secondDilemma->id);
 
-        $firstDilemmaText = File::get($firstDilemma);
-        $secondDilemmaText = File::get($secondDilemma);
+        // Try to find a decision that has these two dilemmas
+        $decision = Decision::where('hash', $hash)
+            ->with('firstDilemma', 'secondDilemma')
+            ->first();
 
-        Dilemma::firstOrCreate([
-            'hash' => $hash,
-            'first_dilemma' => trim($firstDilemmaText),
-            'second_dilemma' => trim($secondDilemmaText),
-        ]);
+        if (! $decision) {
+            Decision::create([
+                'first_dilemma_id' => $firstDilemma->id,
+                'second_dilemma_id' => $secondDilemma->id,
+                'hash' => $hash,
+            ]);
+        }
 
         Queue::push(new GenerateSocialImageJob(
             hash: $hash,
-            firstDilemma: $firstDilemmaText,
-            secondDilemma: $secondDilemmaText,
+            firstDilemma: $firstDilemma->title,
+            secondDilemma: $secondDilemma->title,
         ));
 
         return view('dilemma')
-            ->with('dilemma1', $firstDilemmaText)
-            ->with('dilemma2', $secondDilemmaText)
+            ->with('dilemma1', $firstDilemma->title)
+            ->with('dilemma2', $secondDilemma->title)
             ->with('hash', $hash);
     }
 }

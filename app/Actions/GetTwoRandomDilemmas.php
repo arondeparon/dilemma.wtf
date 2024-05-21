@@ -2,32 +2,42 @@
 
 namespace App\Actions;
 
+use App\Models\Dilemma;
 use App\Support\Traits\Makeable;
-use Illuminate\Support\Facades\File;
-use SplFileInfo;
 
 class GetTwoRandomDilemmas
 {
     use Makeable;
 
-    /**
-     * @return array<SplFileInfo>
-     */
     public function execute()
     {
-        $path = resource_path('dilemmas');
+        // Retrieve all dilemmas ordered by their Elo rank
+        $dilemmas = Dilemma::orderBy('rank')->get();
 
-        // Find markdown files in the dilemmas directory
-        $files = collect(File::files($path))
-            ->filter(function (SplFileInfo $file) {
-                return $file->getExtension() === 'md';
-            });
+        if ($dilemmas->count() < 2) {
+            throw new \Exception('Not enough dilemmas to compare.');
+        }
 
-        $randomDilemmas = $files->random(2);
+        // Select a random index
+        $randomIndex = rand(0, $dilemmas->count() - 1);
+        $firstDilemma = $dilemmas[$randomIndex];
 
-        return [
-            $randomDilemmas[0],
-            $randomDilemmas[1],
-        ];
+        // Define a range for Elo rating
+        $eloRange = 50;
+
+        // Filter dilemmas to find ones within the Elo range
+        $filteredDilemmas = $dilemmas->filter(function ($dilemma) use ($firstDilemma, $eloRange) {
+            return abs($dilemma->rank - $firstDilemma->rank) <= $eloRange && $dilemma->id !== $firstDilemma->id;
+        });
+
+        if ($filteredDilemmas->isEmpty()) {
+            // If no dilemmas are within the range, pick any different dilemma
+            $secondDilemma = $dilemmas->where('id', '!=', $firstDilemma->id)->random();
+        } else {
+            // Otherwise, pick a random dilemma from the filtered list
+            $secondDilemma = $filteredDilemmas->random();
+        }
+
+        return [$firstDilemma, $secondDilemma];
     }
 }

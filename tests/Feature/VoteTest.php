@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\VoteController;
-use App\Models\Dilemma;
+use App\Models\Decision;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 uses(LazilyRefreshDatabase::class);
@@ -15,7 +15,7 @@ it('will return 404 if dilemma was not found', function () {
 });
 
 it('will return 422 if vote is missing', function () {
-    $dilemma = Dilemma::factory()->create();
+    $dilemma = Decision::factory()->create();
 
     $response = $this->postJson(action(VoteController::class, $dilemma->hash));
 
@@ -23,7 +23,7 @@ it('will return 422 if vote is missing', function () {
 });
 
 it('will return 422 if vote is invalid', function () {
-    $dilemma = Dilemma::factory()->create();
+    $dilemma = Decision::factory()->create();
 
     $response = $this->postJson(action(VoteController::class, $dilemma->hash), [
         'vote' => $dilemma->hash,
@@ -33,7 +33,7 @@ it('will return 422 if vote is invalid', function () {
 });
 
 it('can vote for first dilemma', function () {
-    $dilemma = Dilemma::factory()->create();
+    $dilemma = Decision::factory()->create();
 
     $response = $this->postJson(action(VoteController::class, $dilemma->hash), [
         'vote' => 'first',
@@ -49,7 +49,7 @@ it('can vote for first dilemma', function () {
 });
 
 it('can vote for second dilemma', function () {
-    $dilemma = Dilemma::factory()->create();
+    $dilemma = Decision::factory()->create();
 
     $response = $this->postJson(action(VoteController::class, $dilemma->hash), [
         'vote' => 'second',
@@ -65,7 +65,7 @@ it('can vote for second dilemma', function () {
 });
 
 it('will decrement a previous vote if it is different from the current one', function () {
-    $dilemma = Dilemma::factory()->create();
+    $dilemma = Decision::factory()->create();
 
     $this->postJson(action(VoteController::class, $dilemma->hash), [
         'vote' => 'first',

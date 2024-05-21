@@ -18,8 +18,8 @@ class DecisionFactory extends Factory
     {
         return [
             'hash' => $this->faker->unique()->sha1,
-            'first_dilemma' => $this->faker->sentence,
-            'second_dilemma' => $this->faker->sentence,
+            'first_dilemma_id' => DilemmaFactory::new(),
+            'second_dilemma_id' => DilemmaFactory::new(),
         ];
     }
 }

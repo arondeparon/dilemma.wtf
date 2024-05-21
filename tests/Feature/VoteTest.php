@@ -41,7 +41,7 @@ it('can vote for first dilemma', function () {
 
     $response->assertNoContent();
 
-    $this->assertDatabaseHas('dilemmas', [
+    $this->assertDatabaseHas('decisions', [
         'id' => $dilemma->id,
         'first_dilemma_votes' => 1,
         'second_dilemma_votes' => 0,
@@ -57,7 +57,7 @@ it('can vote for second dilemma', function () {
 
     $response->assertNoContent();
 
-    $this->assertDatabaseHas('dilemmas', [
+    $this->assertDatabaseHas('decisions', [
         'id' => $dilemma->id,
         'second_dilemma_votes' => 1,
         'first_dilemma_votes' => 0,
@@ -77,7 +77,7 @@ it('will decrement a previous vote if it is different from the current one', fun
 
     $response->assertNoContent();
 
-    $this->assertDatabaseHas('dilemmas', [
+    $this->assertDatabaseHas('decisions', [
         'id' => $dilemma->id,
         'first_dilemma_votes' => 0,
         'second_dilemma_votes' => 1,

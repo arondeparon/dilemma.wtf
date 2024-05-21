@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::table('decisions', function (Blueprint $table) {
-            $table->uuid()->unique()->change();
+            $table->uuid()->nullable(false)->change();
         });
     }
 

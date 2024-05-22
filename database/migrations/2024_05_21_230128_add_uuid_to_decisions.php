@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-//        Schema::table('decisions', function (Blueprint $table) {
-//            $table->uuid()->after('id')->unique()->nullable();
-//        });
+        //        Schema::table('decisions', function (Blueprint $table) {
+        //            $table->uuid()->after('id')->unique()->nullable();
+        //        });
 
         // Generate UUIDs for existing records
         DB::table('decisions')->get()->each(function ($decision) {

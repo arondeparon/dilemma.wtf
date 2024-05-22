@@ -73,7 +73,7 @@ it('will decrement a previous vote if it is different from the current one', fun
 
     $response = $this->postJson(action(VoteController::class, $dilemma->hash), [
         'vote' => 'second',
-    ])->dump();
+    ]);
 
     $response->assertNoContent();
 

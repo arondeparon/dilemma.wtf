@@ -6,20 +6,20 @@
             <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Current rankings</h1>
             <a href="/" class="text-blue-500 hover:text-blue-600">← Back to dilemmas</a>
         </div>
-        <div class="overflow-x-auto rounded-lg shadow">
-            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <div class="rounded-lg shadow">
+            <table class="w-full table-fixed divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-800">
                 <tr>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-300">
                         Dilemma 1
                     </th>
-                    <th scope="col" class="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-300">
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-300 w-24">
                         Votes
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-300">
                         Dilemma 2
                     </th>
-                    <th scope="col" class="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-300">
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider dark:text-gray-300 w-24">
                         Votes
                     </th>
                 </tr>
@@ -36,7 +36,7 @@
                     <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
                         <td class="px-6 py-3 align-top">
                             <a href="{{ route('dilemma', ['hash' => $ranking->hash]) }}"
-                               class="block font-medium text-gray-900 dark:text-gray-100 truncate max-w-[36rem]"
+                               class="block font-medium text-gray-900 dark:text-gray-100 whitespace-normal break-words"
                                title="{{ $ranking->firstDilemma->title }}">
                                 {{ $ranking->firstDilemma->title }}
                             </a>
@@ -44,7 +44,7 @@
                                 <div class="h-full bg-green-400" style="width: {{ $p1 }}%"></div>
                             </div>
                         </td>
-                        <td class="px-6 py-3 text-center align-top">
+                        <td class="px-6 py-3 text-center align-top w-24">
                             <div class="inline-flex flex-col items-center text-sm">
                                 <span class="font-semibold {{ $firstWins ? 'text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300' }}">{{ $ranking->first_dilemma_votes }}</span>
                                 <span class="text-xs text-gray-500">{{ $p1 }}%</span>
@@ -52,7 +52,7 @@
                         </td>
                         <td class="px-6 py-3 align-top">
                             <a href="{{ route('dilemma', ['hash' => $ranking->hash]) }}"
-                               class="block font-medium text-gray-900 dark:text-gray-100 truncate max-w-[36rem]"
+                               class="block font-medium text-gray-900 dark:text-gray-100 whitespace-normal break-words"
                                title="{{ $ranking->secondDilemma->title }}">
                                 {{ $ranking->secondDilemma->title }}
                             </a>
@@ -60,7 +60,7 @@
                                 <div class="h-full bg-green-400" style="width: {{ $p2 }}%"></div>
                             </div>
                         </td>
-                        <td class="px-6 py-3 text-center align-top">
+                        <td class="px-6 py-3 text-center align-top w-24">
                             <div class="inline-flex flex-col items-center text-sm">
                                 <span class="font-semibold {{ $secondWins ? 'text-green-600 dark:text-green-400' : 'text-gray-600 dark:text-gray-300' }}">{{ $ranking->second_dilemma_votes }}</span>
                                 <span class="text-xs text-gray-500">{{ $p2 }}%</span>

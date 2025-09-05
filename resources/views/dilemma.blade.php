@@ -17,11 +17,15 @@
 
         <!-- Info Overlay -->
         <div x-cloak x-show="infoOpen" x-transition
-             class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-6"
+             class="fixed inset-0 z-50 flex items-start justify-center bg-black/70 p-6"
              @keydown.escape.window="infoOpen = false" @click.self="infoOpen = false">
-            <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 rounded-lg max-w-md text-center space-y-4">
-                <p class="text-lg">Dilemma.wtf throws you two absurd choices. Pick the one you'd rather stomach, see how the crowd voted, then hit Next for another. No logins, no prizes—just weird fun.</p>
-                <button @click="infoOpen = false" class="px-4 py-2 bg-blue-500 text-white rounded">Got it</button>
+            <div class="mt-16 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 rounded-lg max-w-xl w-full space-y-4 text-left">
+                <p class="text-lg">Dilemma.wtf throws you two absurd choices. Pick the one you'd rather stomach, see how the crowd voted, then hit Next for another. No logins, no prizes - just weird fun.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">This site is open source. You can browse the code and even add new dilemmas or improvements yourself on GitHub.</p>
+                <div class="flex items-center justify-between">
+                    <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-blue-500 hover:text-blue-600">View the code on GitHub</a>
+                    <button @click="infoOpen = false" class="px-4 py-2 bg-blue-500 text-white rounded">Got it</button>
+                </div>
             </div>
         </div>
 
@@ -87,6 +91,8 @@
                     </div>
                     <span class="text-gray-400">•</span>
                     <a id="reload" href="/" class="text-blue-400">Next</a>
+                    <span class="text-gray-400">•</span>
+                    <a href="{{ route('ranking') }}" class="text-blue-400">Stats</a>
                     <span class="text-gray-400 hidden lg:inline">•</span>
                     <span class="hidden lg:inline text-sm text-gray-500">Keyboard shortcuts:
                         <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">↑</kbd> - first,

@@ -5,7 +5,30 @@
 @endsection
 
 @section('content')
-    <div x-cloak class="flex flex-col justify-between h-dvh dark:bg-gray-800" x-data="{ selected: null }">
+    <div x-cloak class="relative flex flex-col justify-between h-dvh dark:bg-gray-800" x-data="{ infoOpen: false }">
+        <!-- Info Button -->
+        <button @click="infoOpen = true"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
+            <span class="sr-only">Information</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+            </svg>
+        </button>
+
+        <!-- Info Overlay -->
+        <div x-cloak x-show="infoOpen" x-transition
+             class="fixed inset-0 z-50 flex items-start justify-center bg-black/70 p-6"
+             @keydown.escape.window="infoOpen = false" @click.self="infoOpen = false">
+            <div class="mt-16 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-6 rounded-lg max-w-xl w-full space-y-4 text-left">
+                <p class="text-lg">Dilemma.wtf throws you two absurd choices. Pick the one you'd rather stomach, see how the crowd voted, then hit Next for another. No logins, no prizes - just weird fun.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">This site is open source. You can browse the code and even add new dilemmas or improvements yourself on GitHub.</p>
+                <div class="flex items-center justify-between">
+                    <a href="https://github.com/arondeparon/dilemma.wtf" target="_blank" class="text-blue-500 hover:text-blue-600">View the code on GitHub</a>
+                    <button @click="infoOpen = false" class="px-4 py-2 bg-blue-500 text-white rounded">Got it</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Dilemmas Content -->
         <div class="flex flex-col items-center justify-center flex-grow px-12 text-center" x-data="voter">
             <a class="font-bold text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
@@ -68,6 +91,8 @@
                     </div>
                     <span class="text-gray-400">•</span>
                     <a id="reload" href="/" class="text-blue-400">Next</a>
+                    <span class="text-gray-400">•</span>
+                    <a href="{{ route('ranking') }}" class="text-blue-400">Stats</a>
                     <span class="text-gray-400 hidden lg:inline">•</span>
                     <span class="hidden lg:inline text-sm text-gray-500">Keyboard shortcuts:
                         <kbd class="px-2 py-1 text-lg font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">↑</kbd> - first,

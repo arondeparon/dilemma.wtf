@@ -8,7 +8,8 @@ class RankingController extends Controller
 {
     public function __invoke()
     {
-        $dilemmas = Decision::orderByDesc('first_dilemma_votes')
+        $dilemmas = Decision::with('firstDilemma', 'secondDilemma')
+            ->orderByDesc('first_dilemma_votes')
             ->orderByDesc('second_dilemma_votes')
             ->get();
 

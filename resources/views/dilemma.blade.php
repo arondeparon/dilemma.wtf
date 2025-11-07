@@ -31,6 +31,9 @@
 
         <!-- Dilemmas Content -->
         <div class="flex flex-col items-center justify-center flex-grow px-12 text-center" x-data="voter">
+            <div x-cloak x-show="progressVisible" class="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 pointer-events-none" x-transition>
+                <div class="h-full bg-green-500 dark:bg-green-400" :style="{ width: progress + '%' }" style="transition: width 0.1s linear;"></div>
+            </div>
             <a class="font-bold text-5xl md:text-8xl lg:text-9xl transform transition-all hover:scale-105"
                id="first"
                href="#"
@@ -113,11 +116,50 @@
         document.addEventListener('alpine:init', () => {
             Alpine.data('voter', () => ({
                 selected: null,
+                progress: 0,
+                progressVisible: false,
+                progressInterval: null,
+                progressTimeout: null,
                 vote(option) {
                     this.selected = option;
+                    this.startProgressTimer();
                     axios.post('{{ action(\App\Http\Controllers\VoteController::class, $hash) }}', {
                         'vote': option,
-                    })
+                    }).catch(() => {});
+                },
+                startProgressTimer() {
+                    this.clearTimers();
+                    this.progressVisible = true;
+                    this.progress = 0;
+                    const duration = 4000;
+                    const intervalMs = 50;
+                    const increment = (intervalMs / duration) * 100;
+                    this.progressInterval = setInterval(() => {
+                        this.progress = Math.min(this.progress + increment, 100);
+                    }, intervalMs);
+                    this.progressTimeout = setTimeout(() => {
+                        this.progress = 100;
+                        this.navigateNext();
+                    }, duration);
+                },
+                clearTimers() {
+                    if (this.progressInterval) {
+                        clearInterval(this.progressInterval);
+                        this.progressInterval = null;
+                    }
+                    if (this.progressTimeout) {
+                        clearTimeout(this.progressTimeout);
+                        this.progressTimeout = null;
+                    }
+                },
+                navigateNext() {
+                    this.clearTimers();
+                    const nextLink = document.getElementById('reload');
+                    if (nextLink) {
+                        window.location.href = nextLink.href;
+                    } else {
+                        window.location.reload();
+                    }
                 }
             }));
 
